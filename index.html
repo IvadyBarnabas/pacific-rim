@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<title>Pacific Rim Universe</title>
+<link rel="stylesheet" href="styles.css">
+<script src="script.js" defer></script>
+</head>
+<body data-page="home">
+<!-- ...existing code... -->
+<header class="site-header">
+  <div class="left">
+    <div class="logo">PACIFIC RIM</div>
+  </div>
+  <nav class="main-nav" aria-label="Fő navigáció">
+    <a href="index.html">Kezdőlap</a>
+    <a href="webshop.html">Webshop</a>
+    <a href="fandom.html">Fandom</a>
+    <a href="bts.html">Behind The Scenes</a>
+    <a href="kepregeny.html">Képregény</a>
+    <a href="hirek.html">Hírek</a>
+  </nav>
+  <div class="user-area">
+    <button id="loginBtn" class="btn ghost">Bejelentkezés</button>
+    <div id="userMenu" class="user-menu hidden">
+      <span id="userName" class="user-name"></span>
+      <button id="logoutBtn" class="btn small">Kijelentkezés</button>
+    </div>
+    <button id="mobileToggle" class="mobile-toggle" aria-label="Menü">☰</button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <h1>JOIN THE JAEGER PROGRAM</h1>
+    <p class="tagline">Csatlakozz a védelemhez — fedezd fel a Jaegereket és a Kaijuk világát.</p>
+    <div class="hero-cta">
+      <button class="btn" id="ctaExplore">Felfedezés</button>
+      <button class="btn ghost" id="ctaLogin">Belépés</button>
+    </div>
+  </div>
+  <div class="hero-overlay"></div>
+</section>
+
+<main class="container">
+  <section class="section">
+    <h2>Rólunk</h2>
+    <p>Ez az oldal a Pacific Rim univerzum rajongói számára készült. Jaegerek, Kaijuk, Drift kompatibilitás és minden ami PPDC. Célunk, hogy egy modern rajongói központot hozzunk létre.</p>
+
+    <div class="cards">
+      <article class="card">
+        <h3>Közösség</h3>
+        <p>Csatlakozz és ossz meg tartalmakat, híreket és teóriákat.</p>
+        <button class="btn ghost">Tovább</button>
+      </article>
+
+      <article class="card">
+        <h3>Webshop</h3>
+        <p>Limitált figurák és relikviák.</p>
+        <button class="btn" onclick="location.href='webshop.html'">Nézd meg</button>
+      </article>
+
+      <article class="card">
+        <h3>Fandom</h3>
+        <p>Jaegerek, Kaijuk adatai és statisztikái.</p>
+        <button class="btn ghost" onclick="location.href='fandom.html'">Megnyitás</button>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div>© 2026 Pacific Rim Fan Project</div>
+  <div class="footer-links">
+    <a href="hirek.html">Hírek</a>
+    <a href="kepregeny.html">Képregény</a>
+  </div>
+</footer>
+
+<!-- Login / Register Modal -->
+<div id="authModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+  <div class="modal-panel">
+    <button class="modal-close" id="modalClose" aria-label="Bezárás">✕</button>
+    <h2 id="authTitle">Bejelentkezés</h2>
+
+    <form id="loginForm" class="auth-form">
+      <label>Email
+        <input type="email" id="loginEmail" required>
+      </label>
+      <label>Jelszó
+        <input type="password" id="loginPassword" required>
+      </label>
+      <div class="form-actions">
+        <button type="submit" class="btn">Bejelentkezés</button>
+        <button type="button" id="showRegister" class="btn ghost">Regisztráció</button>
+      </div>
+    </form>
+
+    <form id="registerForm" class="auth-form hidden">
+      <label>Teljes név
+        <input type="text" id="regName" required>
+      </label>
+      <label>Email
+        <input type="email" id="regEmail" required>
+      </label>
+      <label>Jelszó
+        <input type="password" id="regPassword" required minlength="6">
+      </label>
+      <div class="form-actions">
+        <button type="submit" class="btn">Regisztrálok</button>
+        <button type="button" id="showLogin" class="btn ghost">Vissza</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+</body>
+</html>

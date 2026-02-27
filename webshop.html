@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<title>Webshop - Pacific Rim</title>
+<link rel="stylesheet" href="styles.css">
+<script src="script.js" defer></script>
+</head>
+<body data-page="webshop" data-auth="true">
+<!-- ...existing code... -->
+<header class="site-header">
+  <div class="left">
+    <div class="logo">PACIFIC RIM</div>
+  </div>
+  <nav class="main-nav" aria-label="Fő navigáció">
+    <a href="index.html">Kezdőlap</a>
+    <a href="webshop.html" class="active">Webshop</a>
+    <a href="fandom.html">Fandom</a>
+    <a href="bts.html">Behind The Scenes</a>
+    <a href="kepregeny.html">Képregény</a>
+    <a href="hirek.html">Hírek</a>
+  </nav>
+  <div class="user-area">
+    <button id="loginBtn" class="btn ghost">Bejelentkezés</button>
+    <div id="userMenu" class="user-menu hidden">
+      <span id="userName" class="user-name"></span>
+      <button id="logoutBtn" class="btn small">Kijelentkezés</button>
+    </div>
+    <button id="mobileToggle" class="mobile-toggle" aria-label="Menü">☰</button>
+  </div>
+</header>
+
+<main class="container">
+  <section class="section">
+    <h2>PPDC Felszerelés</h2>
+
+    <div class="cards">
+      <div class="card">
+        <h3>Gipsy Danger Figura</h3>
+        <p>Limitált kiadás</p>
+        <button onclick="addToCart()" class="btn">Kosárba</button>
+      </div>
+
+      <div class="card">
+        <h3>Jaeger Pilóta Kabát</h3>
+        <p>Hivatalos stílus</p>
+        <button onclick="addToCart()" class="btn">Kosárba</button>
+      </div>
+
+      <div class="card">
+        <h3>Drift-Kompatibilitás Patch</h3>
+        <p>Csatlakozz a programhoz.</p>
+        <button onclick="addToCart()" class="btn ghost">Kosárba</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div>Kosár elemek: <span id="cartCount">0</span></div>
+  <div>© 2026 Pacific Rim Fan Project</div>
+</footer>
+
+<!-- Auth modal is included by script on every page -->
+</body>
+</html>
