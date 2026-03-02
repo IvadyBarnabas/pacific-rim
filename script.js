@@ -221,6 +221,88 @@ function flashAccent(){
   document.body.animate([{filter:'brightness(1)'},{filter:'brightness(1.06)'}],{duration:160,iterations:1});
 }
 
+// --- Comic viewer logic ---
+const COMIC_IMAGES = [
+  'kepek/hatter2.png',
+  'kepek/hatter.png',
+  'kepek/wp14819111-pacific-rim-wallpapers.webp',
+  'kepek/hatter2.png'
+];
+
+function ensureComicModal(){
+  if(document.getElementById('comicModal')) return;
+  // markup injected in HTML file for clarity; this is kept for safety
+}
+
+function openComicAt(index){
+  const modal = document.getElementById('comicModal');
+  const img = document.getElementById('comicImage');
+  const indicator = document.getElementById('pageIndicator');
+  if(!modal || !img || !indicator) return;
+  index = Math.max(0, Math.min(COMIC_IMAGES.length - 1, index));
+  img.src = COMIC_IMAGES[index];
+  img.dataset.index = index;
+  indicator.innerText = (index + 1) + ' / ' + COMIC_IMAGES.length;
+  modal.classList.remove('hidden');
+  // add backdrop element for blur effect
+  if(!document.querySelector('.comic-modal-backdrop')){
+    const d = document.createElement('div'); d.className = 'comic-modal-backdrop'; document.body.appendChild(d);
+  }
+  document.body.classList.add('comic-open');
+}
+
+function closeComic(){
+  const modal = document.getElementById('comicModal');
+  if(!modal) return;
+  modal.classList.add('hidden');
+  const d = document.querySelector('.comic-modal-backdrop'); if(d) d.remove();
+  document.body.classList.remove('comic-open');
+}
+
+function showNext(){
+  const img = document.getElementById('comicImage');
+  if(!img) return;
+  let idx = Number(img.dataset.index || 0);
+  idx = Math.min(COMIC_IMAGES.length - 1, idx + 1);
+  if(idx !== Number(img.dataset.index)) openComicAt(idx);
+}
+function showPrev(){
+  const img = document.getElementById('comicImage');
+  if(!img) return;
+  let idx = Number(img.dataset.index || 0);
+  idx = Math.max(0, idx - 1);
+  if(idx !== Number(img.dataset.index)) openComicAt(idx);
+}
+
+// attach events to thumbs and controls
+function initComicGallery(){
+  const thumbs = document.querySelectorAll('.comic-thumb');
+  thumbs.forEach(t=> t.addEventListener('click', (e)=>{
+    const idx = Number(t.dataset.index || 0);
+    openComicAt(idx);
+  }));
+
+  document.getElementById('comicClose')?.addEventListener('click', closeComic);
+  document.getElementById('comicNext')?.addEventListener('click', showNext);
+  document.getElementById('comicPrev')?.addEventListener('click', showPrev);
+
+  // keyboard navigation
+  document.addEventListener('keydown', (e)=>{
+    const modal = document.getElementById('comicModal');
+    if(!modal || modal.classList.contains('hidden')) return;
+    if(e.key === 'ArrowRight') showNext();
+    if(e.key === 'ArrowLeft') showPrev();
+    if(e.key === 'Escape') closeComic();
+  });
+}
+
+// call during initUI
+const originalInitUI = initUI;
+initUI = async function(){
+  await originalInitUI();
+  initComicGallery();
+};
+
 /* init */
 document.addEventListener('DOMContentLoaded', ()=> {
   initUI().catch(err=> console.error('initUI error', err));

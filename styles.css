@@ -125,3 +125,34 @@ body{
   .site-header{padding:12px 18px}
   .hero h1{font-size:34px}
 }
+
+/* Comic viewer styles */
+.comic-gallery{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+.comic-thumb{width:180px;height:120px;object-fit:cover;border-radius:10px;cursor:pointer;border:1px solid rgba(255,255,255,0.06);transition:transform .18s, box-shadow .18s}
+.comic-thumb:hover{transform:translateY(-6px);box-shadow:0 16px 30px rgba(0,0,0,0.5)}
+
+.comic-modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:200;}
+.comic-modal.hidden{display:none}
+
+.comic-modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.6);backdrop-filter: blur(6px);z-index:190}
+
+.comic-panel{position:relative;z-index:210;max-width:900px;width:96%;background:linear-gradient(180deg, rgba(2,6,23,0.96), rgba(2,6,23,0.9));padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.04);box-shadow:0 40px 120px rgba(2,6,23,0.9);display:flex;align-items:center;gap:14px}
+.comic-frame{flex:1;display:flex;align-items:center;justify-content:center;position:relative;padding:6px;border-radius:8px;overflow:hidden;background:rgba(0,0,0,0.28)}
+.comic-frame img{max-width:100%;max-height:80vh;display:block;border-radius:6px}
+
+.comic-close{position:absolute;right:12px;top:10px;background:transparent;border:none;color:var(--muted);font-size:20px;z-index:220}
+
+.comic-nav{background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.04);color:#fff;font-size:26px; width:44px;height:44px;border-radius:8px;cursor:pointer}
+.comic-nav.left{align-self:center}
+.comic-nav.right{align-self:center}
+
+.page-indicator{position:absolute;left:50%;transform:translateX(-50%);bottom:10px;background:rgba(0,0,0,0.44);padding:6px 10px;border-radius:20px;font-size:13px;color:var(--muted);backdrop-filter: blur(4px);border:1px solid rgba(255,255,255,0.04)}
+
+/* When modal open, slightly dim and blur everything else using body class toggled by JS */
+body.comic-open > *:not(.comic-modal):not(.comic-modal-backdrop){filter: blur(4px) brightness(0.45);pointer-events:none}
+
+@media (max-width:900px){
+  .comic-panel{flex-direction:column;padding:12px}
+  .comic-nav{width:40px;height:40px}
+  .comic-thumb{width:140px;height:96px}
+}

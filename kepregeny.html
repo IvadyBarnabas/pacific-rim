@@ -7,7 +7,6 @@
 <script src="script.js" defer></script>
 </head>
 <body data-page="kepregeny">
-<!-- ...existing code... -->
 <header class="site-header">
   <div class="left"><div class="logo">PACIFIC RIM</div></div>
   <nav class="main-nav" aria-label="Fő navigáció">
@@ -31,9 +30,33 @@
 <main class="container">
   <section class="section">
     <h2>Pacific Rim Comics</h2>
-    <p>A film előtt játszódó képregények bemutatják a Kaiju háború kezdetét.</p>
+    <p>A film előtt játszódó képregények bemutatják a Kaiju háború kezdetét. Kattints a képekre a megnyitáshoz, majd lapozz a nyilakkal.</p>
+
+    <div class="comic-gallery" aria-label="Képregény galéria">
+      <img class="comic-thumb" data-index="0" src="kepek/hatter2.png" alt="Képregény oldal 1">
+      <img class="comic-thumb" data-index="1" src="kepek/hatter.png" alt="Képregény oldal 2">
+      <img class="comic-thumb" data-index="2" src="kepek/wp14819111-pacific-rim-wallpapers.webp" alt="Képregény oldal 3">
+      <img class="comic-thumb" data-index="3" src="kepek/hatter2.png" alt="Képregény oldal 4">
+    </div>
+
   </section>
 </main>
+
+<!-- képregény néző (overlay miniablak) -->
+<div id="comicModal" class="comic-modal hidden" role="dialog" aria-modal="true" aria-label="Képregény néző">
+  <div class="comic-panel" role="document">
+    <button id="comicClose" class="comic-close" aria-label="Bezárás">✕</button>
+
+    <button id="comicPrev" class="comic-nav left" aria-label="Előző oldal">‹</button>
+
+    <div class="comic-frame">
+      <img id="comicImage" src="" alt="Képregény oldal">
+      <div id="pageIndicator" class="page-indicator">1 / 1</div>
+    </div>
+
+    <button id="comicNext" class="comic-nav right" aria-label="Következő oldal">›</button>
+  </div>
+</div>
 
 <footer class="site-footer">
   <div>© 2026 Pacific Rim Fan Project</div>
