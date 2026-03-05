@@ -223,10 +223,10 @@ function flashAccent(){
 
 // --- Comic viewer logic ---
 const COMIC_IMAGES = [
-  'kepek/hatter2.png',
-  'kepek/hatter.png',
-  'kepek/wp14819111-pacific-rim-wallpapers.webp',
-  'kepek/hatter2.png'
+  'kepek/Pacific Rim tales from the Drift#1/RCO001_1463040706.jpg',
+  'kepek/Pacific Rim tales from the Drift#1/RCO002_1463040706.jpg',
+  'kepek/Pacific Rim tales from the Drift#1/RCO003_w_1463040706.jpg',
+  'kepek/Pacific Rim tales from the Drift#1/RCO001_1463040706.jpg'
 ];
 
 function ensureComicModal(){
