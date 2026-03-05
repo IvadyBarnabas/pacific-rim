@@ -223,10 +223,10 @@ function flashAccent(){
 
 // --- Comic viewer logic ---
 const COMIC_IMAGES = [
-  'kepek/Pacific Rim tales from the Drift#1/RCO001_1463040706.jpg',
-  'kepek/Pacific Rim tales from the Drift#1/RCO002_1463040706.jpg',
-  'kepek/Pacific Rim tales from the Drift#1/RCO003_w_1463040706.jpg',
-  'kepek/Pacific Rim tales from the Drift#1/RCO001_1463040706.jpg'
+  'PacificRimTalesFromTheDrift#1/RCO001_1463040706.jpg',
+  'Pacific Rim tales from the Drift#1/RCO002_1463040706.jpg',
+  'Pacific Rim tales from the Drift#1/RCO003_w_1463040706.jpg',
+  'Pacific Rim tales from the Drift#1/RCO001_1463040706.jpg'
 ];
 
 function ensureComicModal(){
