@@ -234,8 +234,23 @@ const COMIC_IMAGES = [
   'PacificRimTalesFromTheDrift1/RCO009_1463040706.jpg',
   'PacificRimTalesFromTheDrift1/RCO0010_1463040706.jpg',
   'PacificRimTalesFromTheDrift1/RCO011_1463040706.jpg',
-  'PacificRimTalesFromTheDrift1/RCO012_1463040706.jpg'
-
+  'PacificRimTalesFromTheDrift1/RCO012_1463040706.jpg',
+  'PacificRimTalesFromTheDrift1/RCO013_1463040706.jpg',
+  'PacificRimTalesFromTheDrift1/RCO014_1463040706.jpg',
+  'PacificRimTalesFromTheDrift1/RCO015_w_1463040706.jpg',
+  'PacificRimTalesFromTheDrift1/RCO016_1463040706.jpg',
+  'PacificRimTalesFromTheDrift1/RCO017_1463040706.jpg',
+  'PacificRimTalesFromTheDrift1/RCO018_1463040706.jpg',
+  'PacificRimTalesFromTheDrift1/RCO019_1463040706.jpg',
+  'PacificRimTalesFromTheDrift1/RCO020_1463040706.jpg',
+  'PacificRimTalesFromTheDrift1/RCO021_1463040706.jpg',
+  'PacificRimTalesFromTheDrift1/RCO022_1463040706.jpg',
+  'PacificRimTalesFromTheDrift1/RCO023_1463040706.jpg',
+  'PacificRimTalesFromTheDrift1/RCO024_1463040706.jpg',
+  'PacificRimTalesFromTheDrift1/RCO025_1463040706.jpg',
+  'PacificRimTalesFromTheDrift1/RCO026_1463040706.jpg',
+  'PacificRimTalesFromTheDrift1/RCO027_w_1463040706.jpg',
+  'PacificRimTalesFromTheDrift1/RCO028_1463040706.jpg'
 ];
 
 function ensureComicModal(){
@@ -305,11 +320,228 @@ function initComicGallery(){
   });
 }
 
-// call during initUI
+// --- Comic Selection (Reading List) ---
+const COMICS_LIST = [
+  { id: 'drift1', name: 'Tales From The Drift - 1. rész', series: 'Tales From The Drift', year: 2015, status: 'popular', url: 'tales_from_the_drift.html', cover: 'PacificRimTalesFromTheDrift1/RCO001_1463040706.jpg' },
+  { id: 'drift2', name: 'Tales From The Drift - 2. rész', series: 'Tales From The Drift', year: 2015, status: 'popular', url: 'tales_from_the_drift.html', cover: 'PacificRimTalesFromTheDrift2/RCO001_1463040781.jpg' },
+  { id: 'drift3', name: 'Tales From The Drift - 3. rész', series: 'Tales From The Drift', year: 2015, status: 'new', url: 'tales_from_the_drift.html', cover: 'PacificRimTalesFromTheDrift3/RCO001_1463040848.jpg' },
+  { id: 'drift4', name: 'Tales From The Drift - 4. rész', series: 'Tales From The Drift', year: 2015, status: 'new', url: 'tales_from_the_drift.html', cover: 'PacificRimTalesFromTheDrift4/RCO001_1463040923.jpg' },
+  { id: 'final1', name: 'Final Breach - 1. rész', series: 'Final Breach', year: 2026, status: 'available', url: 'final_breach.html', cover: 'PacificRimFinalBreach/FBCover.png' }
+];
+
+const READING_LIST_KEY = 'pr_reading_list';
+
+function initComicSelector(){
+  if(document.body.dataset.page !== 'kepregeny') return;
+  
+  renderComicCatalog();
+  setupComicSelectionEvents();
+  loadReadingList();
+}
+
+function renderComicCatalog(){
+  const catalog = document.getElementById('comicCatalog');
+  if(!catalog) return;
+  
+  catalog.innerHTML = COMICS_LIST.map(comic => `
+    <a href="${comic.url}" class="comic-card-link">
+      <div class="comic-card" data-comic-id="${comic.id}">
+        <div class="comic-cover-container">
+          ${comic.cover ? `<img src="${comic.cover}" alt="${comic.name}" class="comic-cover">` : `<div class="comic-cover-placeholder">📖</div>`}
+          <span class="comic-status-badge ${comic.status}">${comic.status === 'new' ? '🆕 Új' : comic.status === 'available' ? '📦 Előrendelhető' : '⭐ Népszerű'}</span>
+        </div>
+        <div class="comic-header">
+          <h3>${comic.name}</h3>
+          <span class="comic-year">${comic.year}</span>
+        </div>
+        <div class="comic-meta">
+          <span class="comic-series">${comic.series}</span>
+        </div>
+        <div class="comic-actions">
+          <button class="btn-select-comic" data-comic-id="${comic.id}" onclick="event.stopPropagation(); event.preventDefault();">
+            <span class="btn-text">Hozzáadás elolvasotthoz</span>
+          </button>
+        </div>
+      </div>
+    </a>
+  `).join('');
+}
+
+function setupComicSelectionEvents(){
+  // Kiválasztás
+  document.querySelectorAll('.btn-select-comic').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      const comicId = e.target.closest('button').dataset.comicId;
+      toggleComicSelection(comicId);
+    });
+  });
+
+  // Szűrés és rendezés
+  document.getElementById('filterSort')?.addEventListener('change', (e) => {
+    sortComicCatalog(e.target.value);
+  });
+
+  // Nézet gombok
+  document.getElementById('viewGridBtn')?.addEventListener('click', () => switchView('grid'));
+  document.getElementById('viewListBtn')?.addEventListener('click', () => switchView('list'));
+
+  // Törlés gombak
+  document.getElementById('clearAllBtn')?.addEventListener('click', clearAllSelections);
+  document.getElementById('viewSelectedBtn')?.addEventListener('click', showSelectedPanel);
+  document.getElementById('closePanel')?.addEventListener('click', hideSelectedPanel);
+  document.getElementById('clearList')?.addEventListener('click', clearReadingList);
+  document.getElementById('downloadList')?.addEventListener('click', exportReadingList);
+}
+
+function toggleComicSelection(comicId){
+  const list = getReadingList();
+  const idx = list.indexOf(comicId);
+  
+  if(idx === -1){
+    list.push(comicId);
+  } else {
+    list.splice(idx, 1);
+  }
+  
+  saveReadingList(list);
+  updateSelectionUI();
+}
+
+function getReadingList(){
+  const stored = localStorage.getItem(READING_LIST_KEY);
+  return stored ? JSON.parse(stored) : [];
+}
+
+function saveReadingList(list){
+  localStorage.setItem(READING_LIST_KEY, JSON.stringify(list));
+}
+
+function updateSelectionUI(){
+  const list = getReadingList();
+  
+  // Szám frissítése
+  document.getElementById('selectedCount').innerText = list.length;
+  
+  // Gombok frissítése
+  document.querySelectorAll('.btn-select-comic').forEach(btn => {
+    const comicId = btn.dataset.comicId;
+    const isSelected = list.includes(comicId);
+    btn.classList.toggle('selected', isSelected);
+    btn.querySelector('.btn-text').innerText = isSelected ? '✓ Elolvasandóban' : 'Hozzáadás elolvasotthoz';
+  });
+  
+  // Panel frissítése
+  renderSelectedList();
+}
+
+function renderSelectedList(){
+  const list = getReadingList();
+  const selectedList = document.getElementById('selectedList');
+  if(!selectedList) return;
+  
+  if(list.length === 0){
+    selectedList.innerHTML = '<p class="empty-message">Még nincs képregény az elolvasandók között.</p>';
+    return;
+  }
+  
+  selectedList.innerHTML = list.map(comicId => {
+    const comic = COMICS_LIST.find(c => c.id === comicId);
+    if(!comic) return '';
+    return `
+      <div class="selected-item">
+        <div class="item-info">
+          <h4>${comic.name}</h4>
+          <p>${comic.series} (${comic.year})</p>
+        </div>
+        <button class="btn-remove-from-list" data-comic-id="${comicId}" aria-label="Eltávolítás">✕</button>
+      </div>
+    `;
+  }).join('');
+  
+  // Eltávolítási gombok
+  document.querySelectorAll('.btn-remove-from-list').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const comicId = e.target.dataset.comicId;
+      toggleComicSelection(comicId);
+    });
+  });
+}
+
+function clearAllSelections(){
+  if(confirm('Biztosan törlöd az összes választást?')){
+    saveReadingList([]);
+    updateSelectionUI();
+  }
+}
+
+function clearReadingList(){
+  clearAllSelections();
+  hideSelectedPanel();
+}
+
+function showSelectedPanel(){
+  const panel = document.getElementById('selectedPanel');
+  if(panel) panel.classList.remove('hidden');
+}
+
+function hideSelectedPanel(){
+  const panel = document.getElementById('selectedPanel');
+  if(panel) panel.classList.add('hidden');
+}
+
+function loadReadingList(){
+  updateSelectionUI();
+}
+
+function switchView(view){
+  const catalog = document.getElementById('comicCatalog');
+  if(!catalog) return;
+  
+  catalog.classList.remove('grid-view', 'list-view');
+  catalog.classList.add(view === 'grid' ? 'grid-view' : 'list-view');
+  
+  document.getElementById('viewGridBtn')?.setAttribute('aria-pressed', view === 'grid');
+  document.getElementById('viewListBtn')?.setAttribute('aria-pressed', view === 'list');
+  
+  document.getElementById('viewGridBtn')?.classList.toggle('active', view === 'grid');
+  document.getElementById('viewListBtn')?.classList.toggle('active', view === 'list');
+}
+
+function sortComicCatalog(sortBy){
+  if(sortBy === 'name'){
+    COMICS_LIST.sort((a, b) => a.name.localeCompare(b.name, 'hu'));
+  } else if(sortBy === 'recent'){
+    COMICS_LIST.sort((a, b) => b.year - a.year);
+  }
+  renderComicCatalog();
+  updateSelectionUI();
+}
+
+function exportReadingList(){
+  const list = getReadingList();
+  const comics = list.map(id => COMICS_LIST.find(c => c.id === id)).filter(Boolean);
+  
+  const text = 'Elolvasandó képregények - Pacific Rim\n' +
+    '=====================================\n\n' +
+    comics.map((c, i) => `${i+1}. ${c.name} (${c.year})`).join('\n') +
+    '\n\nExportálva: ' + new Date().toLocaleString('hu-HU');
+  
+  const blob = new Blob([text], { type: 'text/plain' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'elolvasandok.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
 const originalInitUI = initUI;
 initUI = async function(){
   await originalInitUI();
   initComicGallery();
+  initComicSelector();
 };
 
 /* init */
