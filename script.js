@@ -223,10 +223,19 @@ function flashAccent(){
 
 // --- Comic viewer logic ---
 const COMIC_IMAGES = [
-  'PacificRimTalesFromTheDrift#1/RCO001_1463040706.jpg',
-  'Pacific Rim tales from the Drift#1/RCO002_1463040706.jpg',
-  'Pacific Rim tales from the Drift#1/RCO003_w_1463040706.jpg',
-  'Pacific Rim tales from the Drift#1/RCO001_1463040706.jpg'
+  'PacificRimTalesFromTheDrift1/RCO001_1463040706.jpg',
+  'PacificRimTalesFromTheDrift1/RCO002_1463040706.jpg',
+  'PacificRimTalesFromTheDrift1/RCO003_w_1463040706.jpg',
+  'PacificRimTalesFromTheDrift1/RCO004_1463040706.jpg',
+  'PacificRimTalesFromTheDrift1/RCO005_1463040706.jpg',
+  'PacificRimTalesFromTheDrift1/RCO006_w_1463040706.jpg',
+  'PacificRimTalesFromTheDrift1/RCO007_1463040706.jpg',
+  'PacificRimTalesFromTheDrift1/RCO008_1463040706.jpg',
+  'PacificRimTalesFromTheDrift1/RCO009_1463040706.jpg',
+  'PacificRimTalesFromTheDrift1/RCO0010_1463040706.jpg',
+  'PacificRimTalesFromTheDrift1/RCO011_1463040706.jpg',
+  'PacificRimTalesFromTheDrift1/RCO012_1463040706.jpg'
+
 ];
 
 function ensureComicModal(){
