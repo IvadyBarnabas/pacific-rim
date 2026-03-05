@@ -73,9 +73,17 @@
 
     <button id="comicPrev" class="comic-nav left" aria-label="Előző oldal">‹</button>
 
-    <div class="comic-frame">
-      <img id="comicImage" src="" alt="Képregény oldal">
+    <div class="comic-frame-container">
+      <div class="comic-frame" id="comicFrame">
+        <img id="comicImage" src="" alt="Képregény oldal">
+      </div>
       <div id="pageIndicator" class="page-indicator">1 / 1</div>
+      <div class="zoom-controls">
+        <button id="zoomOut" class="zoom-btn" aria-label="Kicsinyítés" title="Kicsinyítés">−</button>
+        <span id="zoomLevel" class="zoom-level">100%</span>
+        <button id="zoomIn" class="zoom-btn" aria-label="Nagyítás" title="Nagyítás">+</button>
+        <button id="zoomReset" class="zoom-btn reset" aria-label="Alapérték" title="Alapérték">↺</button>
+      </div>
     </div>
 
     <button id="comicNext" class="comic-nav right" aria-label="Következő oldal">›</button>

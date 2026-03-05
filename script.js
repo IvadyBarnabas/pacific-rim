@@ -232,7 +232,7 @@ const COMIC_IMAGES = [
   'PacificRimTalesFromTheDrift1/RCO007_1463040706.jpg',
   'PacificRimTalesFromTheDrift1/RCO008_1463040706.jpg',
   'PacificRimTalesFromTheDrift1/RCO009_1463040706.jpg',
-  'PacificRimTalesFromTheDrift1/RCO0010_1463040706.jpg',
+  'PacificRimTalesFromTheDrift1/RCO010_1463040706.jpg',
   'PacificRimTalesFromTheDrift1/RCO011_1463040706.jpg',
   'PacificRimTalesFromTheDrift1/RCO012_1463040706.jpg',
   'PacificRimTalesFromTheDrift1/RCO013_1463040706.jpg',
@@ -273,6 +273,7 @@ function openComicAt(index){
     const d = document.createElement('div'); d.className = 'comic-modal-backdrop'; document.body.appendChild(d);
   }
   document.body.classList.add('comic-open');
+  resetZoom();
 }
 
 function closeComic(){
@@ -281,6 +282,7 @@ function closeComic(){
   modal.classList.add('hidden');
   const d = document.querySelector('.comic-modal-backdrop'); if(d) d.remove();
   document.body.classList.remove('comic-open');
+  resetZoom();
 }
 
 function showNext(){
@@ -298,6 +300,47 @@ function showPrev(){
   if(idx !== Number(img.dataset.index)) openComicAt(idx);
 }
 
+// Zoom state
+let comicZoom = { level: 100, offsetX: 0, offsetY: 0 };
+
+function updateZoomDisplay(){
+  const zoomLevel = document.getElementById('zoomLevel');
+  if(zoomLevel) zoomLevel.innerText = comicZoom.level + '%';
+}
+
+function applyZoom(){
+  const img = document.getElementById('comicImage');
+  const frame = document.getElementById('comicFrame');
+  if(!img || !frame) return;
+  
+  img.style.zoom = comicZoom.level / 100;
+  
+  if(comicZoom.level > 100){
+    frame.classList.add('zoomed');
+    img.classList.remove('fit-height');
+  } else {
+    frame.classList.remove('zoomed');
+    img.classList.add('fit-height');
+  }
+  
+  updateZoomDisplay();
+}
+
+function zoomInComic(){
+  comicZoom.level = Math.min(200, comicZoom.level + 25);
+  applyZoom();
+}
+
+function zoomOutComic(){
+  comicZoom.level = Math.max(100, comicZoom.level - 25);
+  applyZoom();
+}
+
+function resetZoom(){
+  comicZoom = { level: 100, offsetX: 0, offsetY: 0 };
+  applyZoom();
+}
+
 // attach events to thumbs and controls
 function initComicGallery(){
   const thumbs = document.querySelectorAll('.comic-thumb');
@@ -310,6 +353,11 @@ function initComicGallery(){
   document.getElementById('comicNext')?.addEventListener('click', showNext);
   document.getElementById('comicPrev')?.addEventListener('click', showPrev);
 
+  // Zoom controls
+  document.getElementById('zoomIn')?.addEventListener('click', zoomInComic);
+  document.getElementById('zoomOut')?.addEventListener('click', zoomOutComic);
+  document.getElementById('zoomReset')?.addEventListener('click', resetZoom);
+
   // keyboard navigation
   document.addEventListener('keydown', (e)=>{
     const modal = document.getElementById('comicModal');
@@ -317,6 +365,9 @@ function initComicGallery(){
     if(e.key === 'ArrowRight') showNext();
     if(e.key === 'ArrowLeft') showPrev();
     if(e.key === 'Escape') closeComic();
+    if(e.key === '+' || e.key === '=') zoomInComic();
+    if(e.key === '-') zoomOutComic();
+    if(e.key === '0') resetZoom();
   });
 }
 

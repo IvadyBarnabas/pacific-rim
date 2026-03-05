@@ -137,8 +137,14 @@ body{
 .comic-modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.6);backdrop-filter: blur(6px);z-index:190}
 
 .comic-panel{position:relative;z-index:210;max-width:900px;width:96%;background:linear-gradient(180deg, rgba(2,6,23,0.96), rgba(2,6,23,0.9));padding:18px;border-radius:12px;border:1px solid rgba(255,255,255,0.04);box-shadow:0 40px 120px rgba(2,6,23,0.9);display:flex;align-items:center;gap:14px}
-.comic-frame{flex:1;display:flex;align-items:center;justify-content:center;position:relative;padding:6px;border-radius:8px;overflow:hidden;background:rgba(0,0,0,0.28)}
-.comic-frame img{max-width:100%;max-height:80vh;display:block;border-radius:6px}
+
+.comic-frame-container{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;gap:8px;width:100%;max-height:80vh;overflow:visible}
+
+.comic-frame{flex:1;width:100%;height:100%;display:flex;align-items:center;justify-content:center;position:relative;border-radius:8px;overflow:hidden;background:rgba(0,0,0,0.28)}
+.comic-frame.zoomed{overflow:auto;align-items:flex-start;justify-content:flex-start}
+.comic-frame img{display:block;border-radius:6px;transition:zoom .2s ease-out;max-width:100%;width:auto;height:auto}
+.comic-frame img.fit-height{max-height:80vh}
+.comic-frame.zoomed img{max-height:none}
 
 .comic-close{position:absolute;right:12px;top:10px;background:transparent;border:none;color:var(--muted);font-size:20px;z-index:220}
 
@@ -147,6 +153,13 @@ body{
 .comic-nav.right{align-self:center}
 
 .page-indicator{position:absolute;left:50%;transform:translateX(-50%);bottom:10px;background:rgba(0,0,0,0.44);padding:6px 10px;border-radius:20px;font-size:13px;color:var(--muted);backdrop-filter: blur(4px);border:1px solid rgba(255,255,255,0.04)}
+
+.zoom-controls{display:flex;align-items:center;gap:8px;padding:8px 12px;background:rgba(0,0,0,0.3);border-radius:8px;border:1px solid rgba(255,255,255,0.08);backdrop-filter:blur(4px)}
+.zoom-btn{background:transparent;border:1px solid rgba(0,195,255,0.3);color:var(--accent);width:32px;height:32px;border-radius:6px;cursor:pointer;transition:all .18s;font-size:14px;font-weight:700}
+.zoom-btn:hover{background:rgba(0,195,255,0.1);border-color:var(--accent)}
+.zoom-btn.reset{color:var(--muted);border-color:rgba(255,255,255,0.2)}
+.zoom-btn.reset:hover{background:rgba(255,255,255,0.05);border-color:var(--muted);color:var(--accent)}
+.zoom-level{color:var(--muted);font-size:12px;min-width:45px;text-align:center}
 
 /* When modal open, slightly dim and blur everything else using body class toggled by JS */
 body.comic-open > *:not(.comic-modal):not(.comic-modal-backdrop){filter: blur(4px) brightness(0.45);pointer-events:none}
@@ -225,16 +238,14 @@ body.comic-open > *:not(.comic-modal):not(.comic-modal-backdrop){filter: blur(4p
   .selected-panel{width:100%;right:0;top:auto;bottom:0;height:60vh;transform:translateY(100%)}
   .selected-panel.hidden{transform:translateY(100%)}
   .comic-controls{flex-direction:column;align-items:flex-start}
+  .comic-panel{flex-direction:column;padding:12px}
+  .comic-nav{width:40px;height:40px;font-size:20px}
+  .comic-thumb{width:140px;height:96px}
+  .zoom-controls{flex-wrap:wrap;justify-content:center;gap:6px}
 }
 
 @media (max-width:600px){
   .comic-catalog.grid-view{grid-template-columns:1fr}
   .comic-catalog.list-view{grid-template-columns:1fr}
   .selected-panel{width:100%;height:70vh;bottom:0}
-}
-
-@media (max-width:900px){
-  .comic-panel{flex-direction:column;padding:12px}
-  .comic-nav{width:40px;height:40px}
-  .comic-thumb{width:140px;height:96px}
 }
