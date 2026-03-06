@@ -223,34 +223,34 @@ function flashAccent(){
 
 // --- Comic viewer logic ---
 const COMIC_IMAGES = [
-  'PacificRimTalesFromTheDrift1/RCO001_1463040706.jpg',
-  'PacificRimTalesFromTheDrift1/RCO002_1463040706.jpg',
-  'PacificRimTalesFromTheDrift1/RCO003_w_1463040706.jpg',
-  'PacificRimTalesFromTheDrift1/RCO004_1463040706.jpg',
-  'PacificRimTalesFromTheDrift1/RCO005_1463040706.jpg',
-  'PacificRimTalesFromTheDrift1/RCO006_w_1463040706.jpg',
-  'PacificRimTalesFromTheDrift1/RCO007_1463040706.jpg',
-  'PacificRimTalesFromTheDrift1/RCO008_1463040706.jpg',
-  'PacificRimTalesFromTheDrift1/RCO009_1463040706.jpg',
-  'PacificRimTalesFromTheDrift1/RCO010_1463040706.jpg',
-  'PacificRimTalesFromTheDrift1/RCO011_1463040706.jpg',
-  'PacificRimTalesFromTheDrift1/RCO012_1463040706.jpg',
-  'PacificRimTalesFromTheDrift1/RCO013_1463040706.jpg',
-  'PacificRimTalesFromTheDrift1/RCO014_1463040706.jpg',
-  'PacificRimTalesFromTheDrift1/RCO015_w_1463040706.jpg',
-  'PacificRimTalesFromTheDrift1/RCO016_1463040706.jpg',
-  'PacificRimTalesFromTheDrift1/RCO017_1463040706.jpg',
-  'PacificRimTalesFromTheDrift1/RCO018_1463040706.jpg',
-  'PacificRimTalesFromTheDrift1/RCO019_1463040706.jpg',
-  'PacificRimTalesFromTheDrift1/RCO020_1463040706.jpg',
-  'PacificRimTalesFromTheDrift1/RCO021_1463040706.jpg',
-  'PacificRimTalesFromTheDrift1/RCO022_1463040706.jpg',
-  'PacificRimTalesFromTheDrift1/RCO023_1463040706.jpg',
-  'PacificRimTalesFromTheDrift1/RCO024_1463040706.jpg',
-  'PacificRimTalesFromTheDrift1/RCO025_1463040706.jpg',
-  'PacificRimTalesFromTheDrift1/RCO026_1463040706.jpg',
-  'PacificRimTalesFromTheDrift1/RCO027_w_1463040706.jpg',
-  'PacificRimTalesFromTheDrift1/RCO028_1463040706.jpg'
+  'PacificRimTalesFromTheDrift1/RCO001_1463040706.webp',
+  'PacificRimTalesFromTheDrift1/RCO002_1463040706.webp',
+  'PacificRimTalesFromTheDrift1/RCO003_w_1463040706.webp',
+  'PacificRimTalesFromTheDrift1/RCO004_1463040706.webp',
+  'PacificRimTalesFromTheDrift1/RCO005_1463040706.webp',
+  'PacificRimTalesFromTheDrift1/RCO006_w_1463040706.webp',
+  'PacificRimTalesFromTheDrift1/RCO007_1463040706.webp',
+  'PacificRimTalesFromTheDrift1/RCO008_1463040706.webp',
+  'PacificRimTalesFromTheDrift1/RCO009_1463040706.webp',
+  'PacificRimTalesFromTheDrift1/RCO010_1463040706.webp',
+  'PacificRimTalesFromTheDrift1/RCO011_1463040706.webp',
+  'PacificRimTalesFromTheDrift1/RCO012_1463040706.webp',
+  'PacificRimTalesFromTheDrift1/RCO013_1463040706.webp',
+  'PacificRimTalesFromTheDrift1/RCO014_1463040706.webp',
+  'PacificRimTalesFromTheDrift1/RCO015_w_1463040706.webp',
+  'PacificRimTalesFromTheDrift1/RCO016_1463040706.webp',
+  'PacificRimTalesFromTheDrift1/RCO017_1463040706.webp',
+  'PacificRimTalesFromTheDrift1/RCO018_1463040706.webp',
+  'PacificRimTalesFromTheDrift1/RCO019_1463040706.webp',
+  'PacificRimTalesFromTheDrift1/RCO020_1463040706.webp',
+  'PacificRimTalesFromTheDrift1/RCO021_1463040706.webp',
+  'PacificRimTalesFromTheDrift1/RCO022_1463040706.webp',
+  'PacificRimTalesFromTheDrift1/RCO023_1463040706.webp',
+  'PacificRimTalesFromTheDrift1/RCO024_1463040706.webp',
+  'PacificRimTalesFromTheDrift1/RCO025_1463040706.webp',
+  'PacificRimTalesFromTheDrift1/RCO026_1463040706.webp',
+  'PacificRimTalesFromTheDrift1/RCO027_w_1463040706.webp',
+  'PacificRimTalesFromTheDrift1/RCO028_1463040706.webp'
 ];
 
 function ensureComicModal(){
@@ -373,10 +373,10 @@ function initComicGallery(){
 
 // --- Comic Selection (Reading List) ---
 const COMICS_LIST = [
-  { id: 'drift1', name: 'Tales From The Drift - 1. rész', series: 'Tales From The Drift', year: 2015, status: 'popular', url: 'tales_from_the_drift.html', cover: 'PacificRimTalesFromTheDrift1/RCO001_1463040706.jpg' },
-  { id: 'drift2', name: 'Tales From The Drift - 2. rész', series: 'Tales From The Drift', year: 2015, status: 'popular', url: 'tales_from_the_drift.html', cover: 'PacificRimTalesFromTheDrift2/RCO001_1463040781.jpg' },
-  { id: 'drift3', name: 'Tales From The Drift - 3. rész', series: 'Tales From The Drift', year: 2015, status: 'new', url: 'tales_from_the_drift.html', cover: 'PacificRimTalesFromTheDrift3/RCO001_1463040848.jpg' },
-  { id: 'drift4', name: 'Tales From The Drift - 4. rész', series: 'Tales From The Drift', year: 2015, status: 'new', url: 'tales_from_the_drift.html', cover: 'PacificRimTalesFromTheDrift4/RCO001_1463040923.jpg' },
+  { id: 'drift1', name: 'Tales From The Drift - 1. rész', series: 'Tales From The Drift', year: 2015, status: 'popular', url: 'tales_from_the_drift.html', cover: 'PacificRimTalesFromTheDrift1/RCO001_1463040706.webp' },
+  { id: 'drift2', name: 'Tales From The Drift - 2. rész', series: 'Tales From The Drift', year: 2015, status: 'popular', url: 'tales_from_the_drift2.html', cover: 'PacificRimTalesFromTheDrift2/RCO001_1463040781.webp' },
+  { id: 'drift3', name: 'Tales From The Drift - 3. rész', series: 'Tales From The Drift', year: 2015, status: 'new', url: 'tales_from_the_drift3.html', cover: 'PacificRimTalesFromTheDrift3/RCO001_1463040848.webp' },
+  { id: 'drift4', name: 'Tales From The Drift - 4. rész', series: 'Tales From The Drift', year: 2015, status: 'new', url: 'tales_from_the_drift4.html', cover: 'PacificRimTalesFromTheDrift4/RCO001_1463040923.webp' },
   { id: 'final1', name: 'Final Breach - 1. rész', series: 'Final Breach', year: 2026, status: 'available', url: 'final_breach.html', cover: 'PacificRimFinalBreach/FBCover.png' }
 ];
 
